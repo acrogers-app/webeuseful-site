@@ -43,11 +43,27 @@
       border: 1px solid rgba(148,163,184,.4);
       padding: 16px 18px 18px;
     }
-    .card h3 {
-      margin: 0 0 6px;
-      font-size: 1.15rem;
+    .card-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
     }
-    .card p { margin: 0 0 10px; font-size: .95rem; line-height: 1.5; }
+    .app-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      flex-shrink: 0;
+    }
+    .card h3 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+    .card p {
+      margin: 6px 0 10px;
+      font-size: .95rem;
+      line-height: 1.5;
+    }
     a { color: #7dd3fc; text-decoration: none; }
     .pill {
       display: inline-block;
@@ -78,37 +94,47 @@
     <h2>Apps</h2>
     <section class="apps">
       <article class="card">
-        <h3><a href="voto/">Voto – Live Polls</a></h3>
-        <p>Create a poll in seconds, share a link with anyone, and watch votes roll in live —
-           no app required to vote.</p>
+        <div class="card-heading">
+          <img src="img/voto-icon-1024.png" alt="Voto icon" class="app-icon">
+          <h3><a href="voto/">Voto – Live Polls</a></h3>
+        </div>
+        <p>Create a poll in seconds, share a link with anyone, and watch votes roll in live — no app required to vote.</p>
         <p><a href="voto/">Learn more →</a></p>
       </article>
 
       <article class="card">
-        <h3><a href="useful-location-reminder/">Useful Location Reminder</a></h3>
-        <p>Never forget errands again. Set reminders that trigger when you arrive at or leave
-           a place — groceries, pharmacy, work, and more.</p>
+        <div class="card-heading">
+          <img src="img/useful-location-reminder-icon-1024.png" alt="Useful Location Reminder icon" class="app-icon">
+          <h3><a href="useful-location-reminder/">Useful Location Reminder</a></h3>
+        </div>
+        <p>Never forget errands again. Set reminders that trigger when you arrive at or leave a place — groceries, pharmacy, work, and more.</p>
         <p><a href="useful-location-reminder/">Learn more →</a></p>
       </article>
 
       <article class="card">
-        <h3><a href="headcountr/">HeadCountr</a></h3>
-        <p>A simple, precise tally counter for classrooms, events, and experiments — built
-           for speed and clarity.</p>
+        <div class="card-heading">
+          <img src="img/headcountr-icon-1024.png" alt="HeadCountr icon" class="app-icon">
+          <h3><a href="headcountr/">HeadCountr</a></h3>
+        </div>
+        <p>A simple, precise tally counter for classrooms, events, and experiments — built for speed and clarity.</p>
         <p><a href="headcountr/">Learn more →</a></p>
       </article>
 
       <article class="card">
-        <h3><a href="we-are-focused/">We Are Focused: Pomodoro Timer</a></h3>
-        <p>A distraction‑beating Pomodoro timer with a little plant that grows as you stay
-           on task and finish sessions.</p>
+        <div class="card-heading">
+          <img src="img/we-are-focused-icon-1024.png" alt="We Are Focused icon" class="app-icon">
+          <h3><a href="we-are-focused/">We Are Focused: Pomodoro Timer</a></h3>
+        </div>
+        <p>A distraction‑beating Pomodoro timer with a little plant that grows as you stay on task and finish sessions.</p>
         <p><a href="we-are-focused/">Learn more →</a></p>
       </article>
 
       <article class="card">
-        <h3><a href="rlfgc/">RLFGC</a></h3>
-        <p>The official app for Rehoboth Lighthouse Full Gospel Church — watch services,
-           see events, and stay connected.</p>
+        <div class="card-heading">
+          <img src="img/rlfgc-icon-1024.png" alt="RLFGC icon" class="app-icon">
+          <h3><a href="rlfgc/">RLFGC</a></h3>
+        </div>
+        <p>The official app for Rehoboth Lighthouse Full Gospel Church — watch services, see events, and stay connected.</p>
         <p><a href="rlfgc/">Learn more →</a></p>
       </article>
     </section>
