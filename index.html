@@ -2,209 +2,480 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Webeuseful – Apps by Allen Rogers</title>
+  <title>Allen Rogers — Webeuseful | Harvard engineer building apps that serve people</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-        content="Webeuseful makes focused, human‑friendly productivity apps for iOS and macOS.">
-  <meta property="og:title" content="Webeuseful – Apps by Allen Rogers">
+        content="Allen Rogers is a Harvard engineer and a pastor building Webeuseful — 8 apps across iOS, web, watchOS, and macOS, shipped solo to the App Store. Software that serves people, built to fund something bigger.">
+  <meta name="author" content="Allen Rogers">
+  <meta name="keywords"
+        content="Allen Rogers, Webeuseful, iOS developer, Harvard engineer, AI consultant, app developer, Haverhill MA, indie developer, watchOS, macOS">
+  <link rel="canonical" href="https://webeuseful.com/">
+  <meta name="theme-color" content="#0A0E1A">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Allen Rogers — Webeuseful">
   <meta property="og:description"
-        content="Focused, human‑friendly tools for teachers, teams, and people who just want to get things done.">
-  <meta property="og:url" content="https://acrogers-app.github.io/webeuseful-site/">
+        content="Harvard engineer and pastor. 8 apps shipped solo across iOS, web, watchOS, and macOS. Software that serves people.">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:url" content="https://webeuseful.com/">
+  <meta property="og:site_name" content="Webeuseful">
+  <meta property="og:image" content="https://webeuseful.com/img/allen.jpg">
+  <meta property="og:image:alt" content="Allen Rogers, founder of Webeuseful">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@webeuseful">
+  <meta name="twitter:creator" content="@webeuseful">
+  <meta name="twitter:title" content="Allen Rogers — Webeuseful">
+  <meta name="twitter:description"
+        content="Harvard engineer and pastor. 8 apps shipped solo across iOS, web, watchOS, and macOS.">
+  <meta name="twitter:image" content="https://webeuseful.com/img/allen.jpg">
+
+  <link rel="icon" href="img/allen.jpg">
+  <link rel="apple-touch-icon" href="img/allen.jpg">
+
+  <!-- Structured data: Allen Rogers as developer/author -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Allen Rogers",
+    "url": "https://webeuseful.com",
+    "image": "https://webeuseful.com/img/allen.jpg",
+    "email": "mailto:allen@webeuseful.com",
+    "jobTitle": "Software Engineer, Indie App Developer & AI Consultant",
+    "description": "Harvard engineer and pastor building Webeuseful — 8 apps across iOS, web, watchOS, and macOS.",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Webeuseful",
+      "url": "https://webeuseful.com"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Rehoboth Lighthouse Full Gospel Church",
+      "location": "Haverhill, MA"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Harvard University"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Haverhill",
+      "addressRegion": "MA",
+      "addressCountry": "US"
+    },
+    "knowsAbout": ["iOS development", "Web development", "watchOS", "Artificial intelligence", "Product design"],
+    "sameAs": [
+      "https://x.com/webeuseful",
+      "https://github.com/acrogers-app",
+      "https://apps.webeuseful.com"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Webeuseful",
+    "url": "https://webeuseful.com",
+    "email": "mailto:allen@webeuseful.com",
+    "founder": { "@type": "Person", "name": "Allen Rogers" },
+    "sameAs": ["https://x.com/webeuseful", "https://github.com/acrogers-app", "https://apps.webeuseful.com"]
+  }
+  </script>
+
   <style>
-    :root { color-scheme: dark; }
+    :root {
+      color-scheme: dark;
+      --bg: #0A0E1A;
+      --bg-soft: #0F1420;
+      --panel: #111624;
+      --panel-2: #141A2A;
+      --line: rgba(148,163,184,.14);
+      --line-strong: rgba(148,163,184,.28);
+      --fg: #F8FAFC;
+      --muted: #94A3B8;
+      --muted-dim: #64748B;
+      --accent: #3B82F6;
+      --accent-soft: #60A5FA;
+      --new: #34D399;
+      --radius: 18px;
+      --max: 1080px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #111827, #020617);
-      color: #f9fafb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
     }
-    .wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 16px 80px;
+    a { color: var(--accent-soft); text-decoration: none; }
+    a:hover { color: #93C5FD; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    section { padding: 72px 0; border-top: 1px solid var(--line); }
+
+    /* ---- top nav ---- */
+    header.nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(140%) blur(12px);
+      background: rgba(10,14,26,.72);
+      border-bottom: 1px solid var(--line);
     }
-    header h1 { font-size: 2.4rem; margin-bottom: .3rem; }
-    header p { max-width: 600px; line-height: 1.5; }
-    h2 { margin-top: 2.4rem; font-size: 1.4rem; }
-    .apps {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 20px;
-      margin-top: 20px;
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--fg); letter-spacing: -.01em; }
+    .brand .dot { width: 10px; height: 10px; border-radius: 3px; background: linear-gradient(135deg, var(--accent), var(--new)); }
+    .nav-links { display: flex; gap: 22px; font-size: .92rem; }
+    .nav-links a { color: var(--muted); }
+    .nav-links a:hover { color: var(--fg); }
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* ---- hero ---- */
+    .hero { position: relative; overflow: hidden; padding: 92px 0 84px; border-top: none; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(closest-side at 18% 12%, rgba(59,130,246,.22), transparent 70%),
+        radial-gradient(closest-side at 85% 8%, rgba(52,211,153,.14), transparent 70%),
+        radial-gradient(closest-side at 60% 100%, rgba(37,99,235,.12), transparent 70%);
     }
-    @media (min-width: 700px) {
-      .apps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero-grid {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 168px 1fr; gap: 34px; align-items: center;
     }
+    @media (max-width: 720px) { .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 22px; justify-items: center; } }
+    .headshot {
+      width: 168px; height: 168px; border-radius: 50%; object-fit: cover; object-position: top;
+      border: 2px solid var(--line-strong);
+      box-shadow: 0 20px 60px -20px rgba(0,0,0,.8), 0 0 0 6px rgba(59,130,246,.06);
+    }
+    .eyebrow {
+      display: inline-block; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent-soft); font-weight: 600; margin-bottom: 14px;
+      border: 1px solid var(--line-strong); border-radius: 999px; padding: 5px 12px;
+      background: rgba(59,130,246,.06);
+    }
+    .hero h1 {
+      font-size: clamp(2.1rem, 6vw, 3.5rem); line-height: 1.05; letter-spacing: -.03em;
+      margin: 0 0 14px; font-weight: 800;
+      background: linear-gradient(180deg, #fff, #C7D2E4); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero .sub { font-size: clamp(1rem, 2.4vw, 1.18rem); color: var(--muted); max-width: 620px; margin: 0 0 12px; }
+    .hero .mission { font-size: .95rem; color: var(--accent-soft); margin: 0 0 26px; font-weight: 500; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 720px) { .cta-row { justify-content: center; } }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: .95rem;
+      padding: 12px 20px; border-radius: 999px; cursor: pointer; transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #2563EB; color: #fff; }
+    .btn-ghost { border: 1px solid var(--line-strong); color: var(--fg); }
+    .btn-ghost:hover { border-color: var(--fg); color: var(--fg); }
+
+    /* ---- section headings ---- */
+    .kicker { font-size: .74rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted-dim); font-weight: 600; margin: 0 0 8px; }
+    .section-title { font-size: clamp(1.5rem, 3.5vw, 2rem); letter-spacing: -.02em; margin: 0 0 8px; font-weight: 700; }
+    .section-lead { color: var(--muted); margin: 0 0 34px; max-width: 620px; }
+
+    /* ---- apps grid ---- */
+    .apps { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
     .card {
-      border-radius: 16px;
-      background: rgba(15,23,42,.9);
-      border: 1px solid rgba(148,163,184,.4);
-      padding: 16px 18px 18px;
+      position: relative; display: flex; flex-direction: column;
+      background: linear-gradient(180deg, var(--panel), var(--bg-soft));
+      border: 1px solid var(--line); border-radius: var(--radius); padding: 20px;
+      transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
     }
-    .card-heading {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-    .app-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      flex-shrink: 0;
-    }
-    .card h3 {
-      margin: 0;
-      font-size: 1.05rem;
-    }
-    .card p {
-      margin: 6px 0 10px;
-      font-size: .95rem;
-      line-height: 1.5;
-    }
-    a { color: #7dd3fc; text-decoration: none; }
+    .card:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: 0 24px 60px -30px rgba(0,0,0,.9); }
+    .card-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .app-icon { width: 54px; height: 54px; border-radius: 14px; flex-shrink: 0; box-shadow: 0 6px 18px -8px rgba(0,0,0,.7); }
+    .card h3 { margin: 0; font-size: 1.12rem; font-weight: 700; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .badge-new { font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: #052E1B; background: var(--new); padding: 2px 7px; border-radius: 999px; }
+    .card .one-liner { color: var(--fg); font-size: .96rem; margin: 0 0 14px; opacity: .92; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .plat { font-size: .7rem; font-weight: 500; color: var(--muted); border: 1px solid var(--line); background: rgba(148,163,184,.06); border-radius: 999px; padding: 3px 9px; }
+    .card-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .price { font-size: .82rem; color: var(--muted); font-weight: 500; }
+    .card-links { display: flex; gap: 8px; }
     .pill {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(55,65,81,.9);
-      font-size: .78rem;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      margin-bottom: 12px;
+      font-size: .78rem; font-weight: 600; padding: 7px 14px; border-radius: 999px; white-space: nowrap;
     }
-    .badge-new {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(56,189,248,.18);
-      border: 1px solid rgba(56,189,248,.5);
-      color: #7dd3fc;
-      font-size: .7rem;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-    }
-    .card-links { font-size: .88rem; opacity: .9; }
-    .about p { max-width: 640px; line-height: 1.6; }
-    footer {
-      margin-top: 40px;
-      font-size: .85rem;
-      opacity: .8;
-    }
+    .pill-solid { background: #fff; color: #0A0E1A; }
+    .pill-solid:hover { background: #E2E8F0; color: #0A0E1A; }
+    .pill-ghost { border: 1px solid var(--line-strong); color: var(--fg); }
+    .pill-ghost:hover { border-color: #fff; color: #fff; }
+
+    /* ---- about ---- */
+    .about-grid { display: grid; grid-template-columns: 200px 1fr; gap: 36px; align-items: start; }
+    @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; gap: 22px; } }
+    .about-photo { width: 200px; height: 240px; object-fit: cover; object-position: top; border-radius: 16px; border: 1px solid var(--line-strong); }
+    .bio { font-size: 1.08rem; color: #E2E8F0; max-width: 640px; margin: 0 0 24px; line-height: 1.65; }
+    .creds { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 10px; }
+    .creds li { display: flex; gap: 10px; align-items: flex-start; color: var(--muted); font-size: .96rem; }
+    .creds li b { color: var(--fg); font-weight: 600; }
+    .creds .tick { color: var(--new); flex-shrink: 0; }
+    .about-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 15px; font-size: .88rem; color: var(--fg); font-weight: 500; }
+    .chip:hover { border-color: var(--fg); }
+
+    /* ---- social proof ---- */
+    .proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center; }
+    @media (max-width: 640px) { .proof { grid-template-columns: 1fr; } }
+    .proof .stat { background: linear-gradient(180deg, var(--panel), var(--bg-soft)); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 18px; }
+    .proof .num { font-size: 1.9rem; font-weight: 800; letter-spacing: -.02em; background: linear-gradient(135deg, var(--accent-soft), var(--new)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .proof .lbl { color: var(--muted); font-size: .92rem; margin-top: 6px; }
+
+    /* ---- contact ---- */
+    .contact-card { background: linear-gradient(180deg, var(--panel-2), var(--bg-soft)); border: 1px solid var(--line-strong); border-radius: 22px; padding: 40px 32px; text-align: center; }
+    .contact-card h2 { margin: 0 0 10px; font-size: clamp(1.5rem, 3.5vw, 2rem); letter-spacing: -.02em; }
+    .contact-card p { color: var(--muted); max-width: 560px; margin: 0 auto 22px; }
+    .email-big { font-size: 1.15rem; font-weight: 600; }
+
+    footer.site { border-top: 1px solid var(--line); padding: 34px 0 60px; color: var(--muted-dim); font-size: .88rem; }
+    .foot-inner { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between; }
+    .foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .foot-links a { color: var(--muted); }
+    .foot-links a:hover { color: var(--fg); }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <span class="pill">Webeuseful</span>
-      <h1>Apps by Allen Rogers</h1>
-      <p>Focused, human‑friendly tools for teachers, teams, and people who just want to get
-         things done. All crafted by an indie developer, no trackers or dark patterns.</p>
-    </header>
 
-    <h2>Apps</h2>
-    <section class="apps">
-      <article class="card">
-        <div class="card-heading">
-          <img src="img/bible-trivia-coach-icon-1024.png" alt="Bible Study Coach icon" class="app-icon">
-          <h3><a href="bible-trivia-coach/">Bible Study Coach</a></h3>
-          <span class="badge-new">New</span>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="dot"></span> Webeuseful</a>
+      <nav class="nav-links">
+        <a href="#apps">Apps</a>
+        <a href="#about">About</a>
+        <a href="#contact">Work with me</a>
+        <a href="https://apps.webeuseful.com" target="_blank" rel="noopener">Portfolio ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <a id="top"></a>
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <img class="headshot" src="img/allen.jpg" alt="Allen Rogers, founder of Webeuseful" width="168" height="168">
+      <div>
+        <span class="eyebrow">Tools for work, focus, and faith — built by one engineer with a mission.</span>
+        <h1>I build software that serves people.</h1>
+        <p class="sub">8 apps. iOS, web, watchOS, and macOS. Built solo. Shipped to the App Store. Built to fund something bigger than downloads.</p>
+        <p class="mission">The engineering funds the ministry. The ministry is why I engineer.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#apps">See my apps →</a>
+          <a class="btn btn-ghost" href="mailto:allen@webeuseful.com?subject=Let%27s%20work%20together">Work with me →</a>
         </div>
-        <p>Gentle daily Scripture reading and low‑pressure quizzes. No accounts, no ads — your progress stays on your device, and quiz analytics are anonymous and opt‑out.</p>
-        <p class="card-links">
-          <a href="bible-trivia-coach/">Learn more →</a> ·
-          <a href="https://biblestudy.webeuseful.com" target="_blank" rel="noopener">Open Web App</a> ·
-          <a href="https://biblestudy.webeuseful.com/privacy" target="_blank" rel="noopener">Privacy</a>
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-heading">
-          <img src="img/voto-icon-1024.png" alt="Voto icon" class="app-icon">
-          <h3><a href="voto/">Voto – Live Polls</a></h3>
-        </div>
-        <p>Create a poll in seconds, share a link with anyone, and watch votes roll in live — no app required to vote.</p>
-        <p><a href="voto/">Learn more →</a></p>
-      </article>
-
-      <article class="card">
-        <div class="card-heading">
-          <img src="img/useful-location-reminder-icon-1024.png" alt="Aviso icon" class="app-icon">
-          <h3><a href="useful-location-reminder/">Aviso – Location Reminders</a></h3>
-        </div>
-        <p>Never forget errands again. Speak your reminder, Aviso finds the place and alerts you the moment you arrive.</p>
-        <p><a href="useful-location-reminder/">Learn more →</a></p>
-      </article>
-
-      <article class="card">
-        <div class="card-heading">
-          <img src="img/headcountr-icon-1024.png" alt="HeadCountr icon" class="app-icon">
-          <h3><a href="headcountr/">HeadCountr</a></h3>
-        </div>
-        <p>A simple, precise tally counter for classrooms, events, and experiments — built for speed and clarity.</p>
-        <p><a href="headcountr/">Learn more →</a></p>
-      </article>
-
-      <article class="card">
-        <div class="card-heading">
-          <img src="img/sprout-icon-1024.png" alt="Sprout: Focus & Grow icon" class="app-icon">
-          <h3><a href="we-are-focused/">Sprout: Focus &amp; Grow</a></h3>
-        </div>
-        <p>A gamified focus timer where your plant buddy grows every minute you stay on task. Pomodoro timer meets garden game.</p>
-        <p class="card-links">
-          <a href="we-are-focused/">Learn more →</a> ·
-          <a href="https://apps.apple.com/app/id6752205949" target="_blank" rel="noopener">App Store</a> ·
-          <a href="https://focus.webeuseful.com" target="_blank" rel="noopener">Open Web App</a>
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-heading">
-          <img src="img/rlfgc-icon-1024.png" alt="RLFGC icon" class="app-icon">
-          <h3><a href="rlfgc/">RLFGC</a></h3>
-        </div>
-        <p>The official app for Rehoboth Lighthouse Full Gospel Church — watch services, see events, and stay connected.</p>
-        <p><a href="rlfgc/">Learn more →</a></p>
-      </article>
-
-      <article class="card">
-        <div class="card-heading">
-          <img src="img/assistant-notes-icon-1024.png" alt="AssistantNotes icon" class="app-icon">
-          <h3><a href="https://assistantnotes.vercel.app" target="_blank" rel="noopener">AssistantNotes</a></h3>
-        </div>
-        <p>AI‑powered voice notes. Record anything, get an instant transcript and structured summary. Pay once — no subscription. Live on the web now, iOS coming soon.</p>
-        <p class="card-links">
-          <a href="https://assistantnotes.vercel.app" target="_blank" rel="noopener">Open Web App</a>
-        </p>
-      </article>
-
-      <article class="card">
-        <div class="card-heading">
-          <img src="img/breakthrough30-icon-1024.png" alt="Breakthrough30 icon" class="app-icon">
-          <h3><a href="https://breakthrough30.webeuseful.com" target="_blank" rel="noopener">Breakthrough30</a></h3>
-          <span class="badge-new">New</span>
-        </div>
-        <p>A 30‑day royal devotional. Walk through four chambers — Identity, Authority, Stewardship, and Legacy — with daily scripture (KJV), guided prayer, and rich royal‑voice audio. Seal each section as you go.</p>
-        <p class="card-links">
-          <a href="https://breakthrough30.webeuseful.com" target="_blank" rel="noopener">Open Web App</a>
-        </p>
-      </article>
-    </section>
-
-    <h2>About</h2>
-    <section class="about">
-      <p>Webeuseful is the independent app studio of <strong>Allen Rogers</strong>, a software
-         engineer and indie developer. Allen designs and builds every Webeuseful app himself —
-         focused, human‑friendly tools for iOS, macOS, and the web, with no trackers and no
-         dark patterns.</p>
-      <p>Questions, feedback, or press: <a href="mailto:allen@webeuseful.com">allen@webeuseful.com</a></p>
-    </section>
-
-    <footer>
-      © 2026 Allen Rogers · Webeuseful · <a href="mailto:allen@webeuseful.com">allen@webeuseful.com</a>
-    </footer>
+      </div>
+    </div>
   </div>
+
+  <!-- ================= APPS ================= -->
+  <section id="apps">
+    <div class="wrap">
+      <p class="kicker">The Portfolio</p>
+      <h2 class="section-title">Eight apps, shipped solo</h2>
+      <p class="section-lead">Focused tools across iOS, web, watchOS, and macOS — no dark patterns, no tracking, most of them pay-once.</p>
+      <div class="apps">
+
+        <article class="card">
+          <div class="card-top">
+            <img class="app-icon" src="img/breakthrough30-icon-1024.png" alt="Breakthrough30 icon">
+            <h3>Breakthrough30 <span class="badge-new">New</span></h3>
+          </div>
+          <p class="one-liner">Thirty days to lead from who God already says you are.</p>
+          <div class="badges"><span class="plat">iOS</span><span class="plat">Web</span></div>
+          <div class="card-foot">
+            <span class="price">$4.99/mo · $34.99/yr</span>
+            <div class="card-links">
+              <a class="pill pill-solid" href="https://breakthrough30.webeuseful.com" target="_blank" rel="noopener">Open</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <img class="app-icon" src="img/sprout-icon-1024.png" alt="Sprout: Focus & Grow icon">
+            <h3>Sprout: Focus &amp; Grow</h3>
+          </div>
+          <p class="one-liner">Your plant grows every minute you actually focus.</p>
+          <div class="badges"><span class="plat">iOS</span><span class="plat">macOS</span><span class="plat">watchOS</span><span class="plat">Web</span></div>
+          <div class="card-foot">
+            <span class="price">Free · $2.99 web</span>
+            <div class="card-links">
+              <a class="pill pill-solid" href="https://apps.apple.com/app/id6752205949" target="_blank" rel="noopener">App Store</a>
+              <a class="pill pill-ghost" href="https://focus.webeuseful.com" target="_blank" rel="noopener">Web</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <img class="app-icon" src="img/assistant-notes-icon-1024.png" alt="AssistantNotes icon">
+            <h3>AssistantNotes</h3>
+          </div>
+          <p class="one-liner">Talk it out, get organized notes back — pay once.</p>
+          <div class="badges"><span class="plat">iOS</span><span class="plat">Web</span></div>
+          <div class="card-foot">
+            <span class="price">Free · $4.99 web</span>
+            <div class="card-links">
+              <a class="pill pill-solid" href="https://assistantnotes.vercel.app" target="_blank" rel="noopener">Open</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <img class="app-icon" src="img/useful-location-reminder-icon-1024.png" alt="Aviso icon">
+            <h3>Aviso</h3>
+          </div>
+          <p class="one-liner">Get reminded the moment you arrive — not at random.</p>
+          <div class="badges"><span class="plat">iOS</span><span class="plat">Web</span></div>
+          <div class="card-foot">
+            <span class="price">Free · $9.99 web</span>
+            <div class="card-links">
+              <a class="pill pill-solid" href="https://apps.apple.com/app/id6754121850" target="_blank" rel="noopener">App Store</a>
+              <a class="pill pill-ghost" href="https://aviso.webeuseful.com" target="_blank" rel="noopener">Web</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <img class="app-icon" src="img/bible-trivia-coach-icon-1024.png" alt="Bible Study Coach icon">
+            <h3>Bible Study Coach</h3>
+          </div>
+          <p class="one-liner">Actually remember what you read — no streaks, no guilt.</p>
+          <div class="badges"><span class="plat">iOS</span><span class="plat">Web</span></div>
+          <div class="card-foot">
+            <span class="price">Free · $2.99 web</span>
+            <div class="card-links">
+              <a class="pill pill-solid" href="https://apps.apple.com/app/id6788610253" target="_blank" rel="noopener">App Store</a>
+              <a class="pill pill-ghost" href="https://biblestudy.webeuseful.com" target="_blank" rel="noopener">Web</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <img class="app-icon" src="img/voto-icon-1024.png" alt="Voto: Live Polls icon">
+            <h3>Voto: Live Polls</h3>
+          </div>
+          <p class="one-liner">Settle any group decision — one link, no sign-ups.</p>
+          <div class="badges"><span class="plat">iOS</span><span class="plat">macOS</span><span class="plat">watchOS</span><span class="plat">Web</span></div>
+          <div class="card-foot">
+            <span class="price">Free · $3.99/mo iOS</span>
+            <div class="card-links">
+              <a class="pill pill-solid" href="https://apps.apple.com/app/id6761238359" target="_blank" rel="noopener">App Store</a>
+              <a class="pill pill-ghost" href="https://usevoto.app" target="_blank" rel="noopener">Web</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <img class="app-icon" src="img/headcountr-icon-1024.png" alt="HeadCountr icon">
+            <h3>HeadCountr</h3>
+          </div>
+          <p class="one-liner">Count any crowd with one thumb — never lose the number.</p>
+          <div class="badges"><span class="plat">iOS</span><span class="plat">watchOS</span><span class="plat">Web</span></div>
+          <div class="card-foot">
+            <span class="price">Free · $1.99 web</span>
+            <div class="card-links">
+              <a class="pill pill-solid" href="https://apps.apple.com/app/id6761966966" target="_blank" rel="noopener">App Store</a>
+              <a class="pill pill-ghost" href="https://headcountr.webeuseful.com" target="_blank" rel="noopener">Web</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <img class="app-icon" src="img/rlfgc-icon-1024.png" alt="RLFGC icon">
+            <h3>RLFGC</h3>
+          </div>
+          <p class="one-liner">Your whole church, in one free app.</p>
+          <div class="badges"><span class="plat">iOS</span><span class="plat">Web</span></div>
+          <div class="card-foot">
+            <span class="price">Free forever</span>
+            <div class="card-links">
+              <a class="pill pill-solid" href="https://apps.apple.com/app/id6741722720" target="_blank" rel="noopener">App Store</a>
+              <a class="pill pill-ghost" href="https://rlfgc.webeuseful.com" target="_blank" rel="noopener">Web</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="wrap">
+      <p class="kicker">About</p>
+      <h2 class="section-title">Allen Rogers</h2>
+      <div class="about-grid">
+        <img class="about-photo" src="img/allen.jpg" alt="Allen Rogers">
+        <div>
+          <p class="bio">Allen Rogers is a Harvard engineer and a pastor — and he refuses to split the two. Under Webeuseful he's shipped eight apps solo, from focus timers to devotionals. The engineering funds the ministry. The ministry is why he engineers. One calling, no split.</p>
+          <ul class="creds">
+            <li><span class="tick">✓</span><span><b>Harvard engineer</b> — CS + Business degrees</span></li>
+            <li><span class="tick">✓</span><span><b>iOS, web &amp; watchOS developer</b> — 8 apps live on the App Store and the web</span></li>
+            <li><span class="tick">✓</span><span><b>AI consultant</b> — building AI-powered products and advising teams</span></li>
+            <li><span class="tick">✓</span><span><b>Pastor &amp; co-founder</b> — Rehoboth Lighthouse Full Gospel Church, Haverhill, MA</span></li>
+          </ul>
+          <div class="about-links">
+            <a class="chip" href="mailto:allen@webeuseful.com">✉ allen@webeuseful.com</a>
+            <a class="chip" href="https://apps.webeuseful.com" target="_blank" rel="noopener"> App Store apps</a>
+            <a class="chip" href="https://x.com/webeuseful" target="_blank" rel="noopener">𝕏 @webeuseful</a>
+            <a class="chip" href="https://github.com/acrogers-app" target="_blank" rel="noopener">⌥ github.com/acrogers-app</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOCIAL PROOF ================= -->
+  <section id="proof">
+    <div class="wrap">
+      <div class="proof">
+        <div class="stat"><div class="num">8 apps</div><div class="lbl">Live on the App Store &amp; web</div></div>
+        <div class="stat"><div class="num">4 platforms</div><div class="lbl">iOS · web · watchOS · macOS</div></div>
+        <div class="stat"><div class="num">Built solo</div><div class="lbl">Designed, coded &amp; shipped by one engineer</div></div>
+      </div>
+      <p class="section-lead" style="margin-top:26px;text-align:center;max-width:none;">
+        See the full, always-current portfolio at <a href="https://apps.webeuseful.com" target="_blank" rel="noopener">apps.webeuseful.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT / WORK WITH ME ================= -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-card">
+        <p class="kicker" style="margin-bottom:12px;">Work with me</p>
+        <h2>AI consulting &amp; app development</h2>
+        <p>I help teams design and ship real products — iOS, web, and AI. If you've got something worth building, let's talk.</p>
+        <a class="btn btn-primary" href="mailto:allen@webeuseful.com?subject=Let%27s%20work%20together">✉ allen@webeuseful.com</a>
+        <p class="email-big" style="margin-top:18px;color:var(--muted);"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div class="wrap foot-inner">
+      <div>© 2026 Allen Rogers · Webeuseful</div>
+      <div class="foot-links">
+        <a href="mailto:allen@webeuseful.com">allen@webeuseful.com</a>
+        <a href="https://apps.webeuseful.com" target="_blank" rel="noopener">Portfolio</a>
+        <a href="https://x.com/webeuseful" target="_blank" rel="noopener">X</a>
+        <a href="https://github.com/acrogers-app" target="_blank" rel="noopener">GitHub</a>
+        <a href="privacy.html">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
