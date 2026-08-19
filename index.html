@@ -144,11 +144,13 @@
     }
     .hero-grid {
       position: relative; z-index: 1;
-      display: grid; grid-template-columns: 168px 1fr; gap: 34px; align-items: center;
+      display: grid; grid-template-columns: 176px 1fr; gap: 34px; align-items: center;
     }
     @media (max-width: 720px) { .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 22px; justify-items: center; } }
     .headshot {
-      width: 168px; height: 168px; border-radius: 50%; object-fit: cover; object-position: top;
+      display: block;
+      width: 176px; height: 176px; aspect-ratio: 1 / 1;
+      border-radius: 50%; object-fit: cover; object-position: top center;
       border: 2px solid var(--line-strong);
       box-shadow: 0 20px 60px -20px rgba(0,0,0,.8), 0 0 0 6px rgba(59,130,246,.06);
     }
@@ -210,9 +212,9 @@
     .pill-ghost:hover { border-color: #fff; color: #fff; }
 
     /* ---- about ---- */
-    .about-grid { display: grid; grid-template-columns: 200px 1fr; gap: 36px; align-items: start; }
+    .about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 36px; align-items: start; }
     @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; gap: 22px; } }
-    .about-photo { width: 200px; height: 240px; object-fit: cover; object-position: top; border-radius: 16px; border: 1px solid var(--line-strong); }
+    .about-photo { display: block; width: 220px; height: 220px; aspect-ratio: 1 / 1; object-fit: cover; object-position: top center; border-radius: 20px; border: 1px solid var(--line-strong); }
     .bio { font-size: 1.08rem; color: #E2E8F0; max-width: 640px; margin: 0 0 24px; line-height: 1.65; }
     .creds { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 10px; }
     .creds li { display: flex; gap: 10px; align-items: flex-start; color: var(--muted); font-size: .96rem; }
@@ -259,7 +261,7 @@
   <a id="top"></a>
   <div class="hero">
     <div class="wrap hero-grid">
-      <img class="headshot" src="img/allen.jpg" alt="Allen Rogers, founder of Webeuseful" width="168" height="168">
+      <img class="headshot" src="img/allen.jpg" alt="Allen Rogers, founder of Webeuseful" width="176" height="176">
       <div>
         <span class="eyebrow">Tools for work, focus, and faith — built by one engineer with a mission.</span>
         <h1>I build software that serves people.</h1>
@@ -417,7 +419,7 @@
       <p class="kicker">About</p>
       <h2 class="section-title">Allen Rogers</h2>
       <div class="about-grid">
-        <img class="about-photo" src="img/allen.jpg" alt="Allen Rogers">
+        <img class="about-photo" src="img/allen.jpg" alt="Allen Rogers" width="220" height="220">
         <div>
           <p class="bio">Allen Rogers is a Harvard engineer and a pastor — and he refuses to split the two. Under Webeuseful he's shipped eight apps solo, from focus timers to devotionals. The engineering funds the ministry. The ministry is why he engineers. One calling, no split.</p>
           <ul class="creds">
