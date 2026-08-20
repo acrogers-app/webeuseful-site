@@ -226,6 +226,9 @@
     .proof .stat { background: linear-gradient(180deg, var(--panel), var(--bg-soft)); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 18px; }
     .proof .num { font-size: 1.9rem; font-weight: 800; letter-spacing: -.02em; background: linear-gradient(135deg, var(--accent-soft), var(--new)); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .proof .lbl { color: var(--muted); font-size: .92rem; margin-top: 6px; }
+    /* Live, auto-updating social-proof total (hidden until the API responds). */
+    .live-total { margin: 28px auto 0; text-align: center; font-size: 1.12rem; font-weight: 600; color: var(--muted); max-width: 640px; }
+    .live-total b { font-weight: 800; font-size: 1.3rem; letter-spacing: -.01em; background: linear-gradient(135deg, var(--accent-soft), var(--new)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
     /* ---- contact ---- */
     .contact-card { background: linear-gradient(180deg, var(--panel-2), var(--bg-soft)); border: 1px solid var(--line-strong); border-radius: 22px; padding: 40px 32px; text-align: center; }
@@ -445,6 +448,7 @@
         <div class="stat"><div class="num">4 platforms</div><div class="lbl">iOS · web · watchOS · macOS</div></div>
         <div class="stat"><div class="num">Built solo</div><div class="lbl">Designed, coded &amp; shipped by one engineer</div></div>
       </div>
+      <p class="live-total" id="live-total" hidden><b id="live-total-num"></b> combined downloads &amp; visits across iOS and web</p>
       <p class="section-lead" style="margin-top:26px;text-align:center;max-width:none;">
         See the full, always-current portfolio at <a href="https://apps.webeuseful.com" target="_blank" rel="noopener">apps.webeuseful.com</a>.
       </p>
@@ -477,5 +481,47 @@
     </div>
   </footer>
 
+  <!-- Live, auto-updating social-proof total. Fetches portfolio-wide all-time
+       iOS downloads + web visits from the Command Center public API. Fails
+       silently (the stat stays hidden) if the API is unreachable. Cached in
+       localStorage, refreshed at most once per hour. -->
+  <script>
+    (function () {
+      var API = 'https://dashboard.webeuseful.com/api/public-totals';
+      var LS_KEY = 'weu_totals_v1';
+      var MAX_AGE = 3600000; // 1 hour
+
+      function render(n) {
+        if (typeof n !== 'number' || !isFinite(n) || n <= 0) return;
+        var num = document.getElementById('live-total-num');
+        var wrap = document.getElementById('live-total');
+        if (!num || !wrap) return;
+        var floored = Math.floor(n / 10) * 10; // round down to a clean "N+"
+        num.textContent = floored.toLocaleString() + '+';
+        wrap.hidden = false;
+      }
+
+      // Use the cached value if it's under an hour old — no refetch on navigation.
+      try {
+        var cached = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
+        if (cached && typeof cached.n === 'number' && (Date.now() - cached.t) < MAX_AGE) {
+          render(cached.n);
+          return;
+        }
+      } catch (e) { /* ignore corrupt cache */ }
+
+      fetch(API, { mode: 'cors' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d) return;
+          var n = d.total_combined;
+          if (typeof n === 'number' && n > 0) {
+            render(n);
+            try { localStorage.setItem(LS_KEY, JSON.stringify({ n: n, t: Date.now() })); } catch (e) {}
+          }
+        })
+        .catch(function () { /* API unreachable — leave the stat hidden */ });
+    })();
+  </script>
 </body>
 </html>
