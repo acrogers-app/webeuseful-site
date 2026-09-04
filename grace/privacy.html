@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>RLFGC Grace — Privacy Policy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      html, body {
+        margin: 0; padding: 0; height: 100%;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top left, #020617, #0f172a 55%, #020617);
+        color: #e5e7eb; box-sizing: border-box;
+      }
+      body { display: flex; justify-content: center; align-items: flex-start; padding: 56px 16px; }
+      .card {
+        max-width: 880px; width: 100%;
+        background: rgba(15, 23, 42, 0.98);
+        border-radius: 24px; padding: 32px 24px 40px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        box-shadow: 0 24px 80px rgba(15, 23, 42, 0.9);
+      }
+      h1 { margin: 0 0 8px; font-size: 1.9rem; font-weight: 800; letter-spacing: -0.04em; color: #f9fafb; }
+      h2 { margin: 28px 0 8px; font-size: 1.2rem; font-weight: 700; color: #e5e7eb; }
+      p  { margin: 0 0 14px; font-size: 0.98rem; line-height: 1.6; color: #cbd5f5; }
+      ul { margin: 0 0 18px 1.2rem; padding: 0; font-size: 0.98rem; line-height: 1.6; color: #cbd5f5; }
+      li { margin-bottom: 6px; }
+      a  { color: #38bdf8; text-decoration: none; font-weight: 500; }
+      a:hover { text-decoration: underline; }
+      .effective { font-size: 0.85rem; color: #64748b; margin-bottom: 24px; }
+      .nav { display: flex; gap: 20px; margin-bottom: 32px; flex-wrap: wrap; }
+      .nav a { font-size: 0.9rem; color: #64748b; font-weight: 400; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <nav class="nav">
+        <a href="/">Webeuseful home</a>
+        <a href="/grace/">About RLFGC Grace</a>
+      </nav>
+      <h1>RLFGC Grace — Privacy Policy</h1>
+      <p class="effective">Effective date: September 3, 2026</p>
+
+      <p>
+        RLFGC Grace ("Grace") is an internal sermon publishing tool operated by Webeuseful
+        (Allen Rogers, <a href="mailto:allen@webeuseful.com">allen@webeuseful.com</a>) exclusively
+        for Rehoboth Lighthouse Full Gospel Church Inc. ("the church"). Grace connects to the
+        church's own YouTube account with the church's authorization. It has no public sign-up
+        and no users other than the church and its authorized staff.
+      </p>
+
+      <h2>Google user data Grace accesses</h2>
+      <p>With the church's OAuth consent, Grace uses the YouTube Data API with these scopes:</p>
+      <ul>
+        <li><strong>youtube.upload</strong> — to upload sermon-only videos and short highlight clips to the church's own channel.</li>
+        <li><strong>youtube.force-ssl</strong> — to read and manage the church channel's own videos: listing uploads, reading and updating video metadata (titles, descriptions, tags, thumbnails), downloading captions of the church's own recordings, and scheduling publication.</li>
+      </ul>
+
+      <h2>How Grace uses this data</h2>
+      <ul>
+        <li>Reads the church channel's own video list, metadata, and captions to locate the sermon portion of each service recording.</li>
+        <li>Prepares edited sermon-only videos and short clips from those recordings.</li>
+        <li>Uploads the prepared videos to the same church channel, and updates their metadata — only after a member of church staff explicitly reviews and approves each item.</li>
+      </ul>
+      <p>
+        Grace never accesses any Google account data other than the church's own YouTube channel
+        content, and never acts on any channel other than the church's.
+      </p>
+
+      <h2>Storage and retention</h2>
+      <ul>
+        <li>OAuth tokens are stored encrypted-at-rest on church-authorized infrastructure and are never shared with third parties.</li>
+        <li>Video files and transcripts being processed are stored temporarily on the operator's processing machine and deleted after publication.</li>
+        <li>Processing metadata (video IDs, titles, timestamps, approval records) is stored in a private database accessible only to the operator and church staff.</li>
+      </ul>
+
+      <h2>Sharing</h2>
+      <p>
+        Grace does not sell, rent, or share Google user data with any third party. Data is not
+        used for advertising. The only "sharing" that occurs is the intended one: videos the
+        church approves are published to the church's own public YouTube channel.
+      </p>
+
+      <h2>Limited Use disclosure</h2>
+      <p>
+        Grace's use and transfer of information received from Google APIs adheres to the
+        <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>,
+        including the Limited Use requirements.
+      </p>
+
+      <h2>Revoking access</h2>
+      <p>
+        The church can revoke Grace's access at any time at
+        <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.
+        Revocation immediately prevents any further API access. Stored tokens are then deleted on request.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Privacy questions or deletion requests:
+        <a href="mailto:allen@webeuseful.com">allen@webeuseful.com</a>
+      </p>
+    </main>
+  </body>
+</html>
