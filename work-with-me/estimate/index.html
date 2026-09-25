@@ -352,7 +352,7 @@
             <a class="btn btn-primary" id="book" href="https://cal.com/webeuseful" target="_blank" rel="noopener">Book a call — 15 or 30 min →</a>
             <a class="btn btn-ghost" href="mailto:allen@webeuseful.com?subject=About%20my%20project%20estimate">Email me instead</a>
           </div>
-          <p class="hint" style="margin:18px 0 0;font-size:.85rem;">Got your details — I'll be in touch either way.</p>
+          <p class="hint" style="margin:18px 0 0;font-size:.85rem;">Got your details — I'll be in touch either way. Call requests are confirmed by me, not booked instantly.</p>
           <p class="hint" style="margin:10px 0 0;font-size:.8rem;">Calls may be recorded so I can take notes rather than type through our conversation. I'll ask you at the start, and you're free to say no — the call goes ahead either way, and recordings aren't shared.</p>
         </div>
       </div>
@@ -375,13 +375,13 @@
   (function () {
     var API = 'https://dashboard.webeuseful.com/api/lead-estimate';
 
-    // Booking link per timeline tier. Every tier goes to the profile page until
-    // Allen creates the three confirmation-required event types in Cal.com;
-    // then each url becomes that event type's URL and the label its name.
+    // Booking link per timeline tier. All three Cal.com event types require
+    // Allen's confirmation (created 2026-09-25): rush 15 min / 48 h notice,
+    // project 30 min / 5 days, flexible 30 min / 7 days.
     var CAL = {
-      rush:        { url: 'https://cal.com/webeuseful', label: 'Book a call \u2014 15 or 30 min \u2192' },
-      '4_8_weeks': { url: 'https://cal.com/webeuseful', label: 'Book a call \u2014 15 or 30 min \u2192' },
-      flexible:    { url: 'https://cal.com/webeuseful', label: 'Book a call \u2014 15 or 30 min \u2192' }
+      rush:        { url: 'https://cal.com/webeuseful/rush-intro-call',       label: 'Book a rush intro call \u2014 15 min \u2192' },
+      '4_8_weeks': { url: 'https://cal.com/webeuseful/project-call',          label: 'Book a project call \u2014 30 min \u2192' },
+      flexible:    { url: 'https://cal.com/webeuseful/flexible-project-call', label: 'Book a flexible project call \u2014 30 min \u2192' }
     };
     var LABELS = {
       projectType: { marketing: 'A marketing site', webapp: 'A web app', mobile: 'A mobile app', both: 'Web and mobile' },
