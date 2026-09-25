@@ -210,6 +210,15 @@
     .result-card { background: linear-gradient(180deg, var(--panel), var(--bg-soft)); border: 1px solid var(--line);
       border-radius: var(--radius); padding: 28px; text-align: center; }
     .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .recap { display: grid; gap: 0; margin: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .recap-row { display: grid; grid-template-columns: 120px 1fr auto; gap: 12px; align-items: start; padding: 12px 14px; border-top: 1px solid var(--line); }
+    .recap-row:first-child { border-top: none; }
+    .recap-row dt { margin: 0; font-size: .85rem; color: var(--muted); padding-top: 2px; }
+    .recap-row dd { margin: 0; font-size: .95rem; color: var(--fg); overflow-wrap: anywhere; }
+    .recap-row dd small { display: block; color: var(--muted); font-size: .85rem; margin-top: 2px; }
+    .recap-edit { background: none; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font: inherit; font-size: .8rem; padding: 4px 10px; cursor: pointer; }
+    .recap-edit:hover { color: var(--fg); border-color: var(--accent); }
+    @media (max-width: 520px) { .recap-row { grid-template-columns: 1fr auto; } .recap-row dt { grid-column: 1 / -1; padding-top: 0; } }
   </style>
 </head>
 <body>
@@ -233,7 +242,7 @@
       <p class="section-lead">Six quick questions. You'll get a ballpark range at the end — not a fixed quote, and no one calls you unless you ask.</p>
 
       <div class="progress" aria-hidden="true"><i id="bar"></i></div>
-      <p class="step-count" id="stepCount">Step 1 of 7</p>
+      <p class="step-count" id="stepCount">Step 1 of 8</p>
 
       <form id="est" novalidate>
         <!-- 1 -->
@@ -319,6 +328,13 @@
           <p class="hint" style="margin:4px 0 0;font-size:.85rem;">I'll only use this to reply about your project. No list, no forwarding.</p>
         </div>
 
+        <!-- 8: review before the real submit -->
+        <div class="step" data-step="7">
+          <p class="q">Here's what you told me</p>
+          <p class="hint">Check it over. Tap Edit on anything to change it, then get your range.</p>
+          <dl class="recap" id="recap" aria-live="polite"></dl>
+        </div>
+
         <p class="err" id="err" role="alert"></p>
         <div class="nav-btns">
           <button type="button" class="btn btn-primary" id="next">Continue →</button>
@@ -358,6 +374,23 @@
   <script>
   (function () {
     var API = 'https://dashboard.webeuseful.com/api/lead-estimate';
+
+    // Booking link per timeline tier. Every tier goes to the profile page until
+    // Allen creates the three confirmation-required event types in Cal.com;
+    // then each url becomes that event type's URL and the label its name.
+    var CAL = {
+      rush:        { url: 'https://cal.com/webeuseful', label: 'Book a call \u2014 15 or 30 min \u2192' },
+      '4_8_weeks': { url: 'https://cal.com/webeuseful', label: 'Book a call \u2014 15 or 30 min \u2192' },
+      flexible:    { url: 'https://cal.com/webeuseful', label: 'Book a call \u2014 15 or 30 min \u2192' }
+    };
+    var LABELS = {
+      projectType: { marketing: 'A marketing site', webapp: 'A web app', mobile: 'A mobile app', both: 'Web and mobile' },
+      platforms: { web: 'Web', ios: 'iOS', android: 'Android', macos: 'macOS' },
+      features: { auth: 'Accounts & login', payments: 'Payments', database: 'Database / backend', admin: 'Admin dashboard', push: 'Notifications', integrations: 'Other integrations' },
+      existingAssets: { has_design: 'Yes, I have designs or a brand', from_scratch: 'Starting from scratch' },
+      timeline: { flexible: 'Flexible', '4_8_weeks': '4\u20138 weeks', rush: 'Rush' }
+    };
+    var REVIEW_STEP = 7;
     var LS_KEY = 'we_estimate_draft';
 
     var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
@@ -382,6 +415,7 @@
 
     var state = { projectType: '', platforms: [], features: [], existingAssets: '', timeline: '' };
     var i = 0;
+    var fromReview = false; // set when the visitor jumps back from the review screen to edit
 
     // Restore an in-progress answer set so a refresh doesn't wipe the form.
     try {
@@ -408,7 +442,9 @@
       bar.style.width = Math.round((i / vis.length) * 100) + '%';
       stepCount.textContent = 'Step ' + (i + 1) + ' of ' + vis.length;
       backBtn.hidden = i === 0;
-      nextBtn.textContent = i === vis.length - 1 ? 'Get my range →' : 'Continue →';
+      var onReview = Number(vis[i].dataset.step) === REVIEW_STEP;
+      nextBtn.textContent = onReview ? 'Get my range →' : (fromReview ? 'Save & review →' : 'Continue →');
+      if (onReview) renderRecap();
       err.textContent = '';
       // reflect stored answers
       vis[i].querySelectorAll('.opt').forEach(function (b) {
@@ -442,6 +478,42 @@
       err.textContent = '';
     });
 
+    function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function names(map, arr) {
+      return arr.map(function (v) { return map[v] || v; }).join(', ');
+    }
+    function renderRecap() {
+      var recap = document.getElementById('recap');
+      var featureOther = document.getElementById('featureOther').value.trim();
+      var budget = document.getElementById('budgetNote').value.trim();
+      var rows = [
+        { step: 0, label: 'Building', value: LABELS.projectType[state.projectType] || '\u2014' },
+        { step: 1, label: 'Platforms', value: state.platforms.length ? names(LABELS.platforms, state.platforms) : '\u2014', hide: state.projectType === 'marketing' },
+        { step: 2, label: 'Needs to', value: state.features.length ? names(LABELS.features, state.features) : 'Nothing selected', sub: featureOther },
+        { step: 3, label: 'Designs', value: LABELS.existingAssets[state.existingAssets] || '\u2014' },
+        { step: 4, label: 'Timeline', value: LABELS.timeline[state.timeline] || '\u2014' },
+        { step: 5, label: 'Budget', value: budget || '(left blank)' },
+        { step: 6, label: 'Send to', value: document.getElementById('name').value.trim(), sub: document.getElementById('email').value.trim() }
+      ];
+      recap.innerHTML = rows.filter(function (r) { return !r.hide; }).map(function (r) {
+        return '<div class="recap-row"><dt>' + esc(r.label) + '</dt><dd>' + esc(r.value) +
+          (r.sub ? '<small>' + esc(r.sub) + '</small>' : '') +
+          '</dd><button type="button" class="recap-edit" data-goto="' + r.step + '" aria-label="Edit ' + esc(r.label) + '">Edit</button></div>';
+      }).join('');
+    }
+    // Edit from the review screen: jump to that step; Continue brings them straight back.
+    form.addEventListener('click', function (e) {
+      var b = e.target.closest('.recap-edit');
+      if (!b) return;
+      var target = Number(b.dataset.goto);
+      var vis = visible();
+      for (var k = 0; k < vis.length; k++) {
+        if (Number(vis[k].dataset.step) === target) { i = k; break; }
+      }
+      fromReview = true;
+      paint();
+      document.querySelector('.est-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
     function validate() {
       var step = visible()[i], n = Number(step.dataset.step);
       if (n === 0 && !state.projectType) return 'Pick what you’re building.';
@@ -492,6 +564,10 @@
         }
         document.getElementById('rangeOut').textContent =
           money(d.low) + '–' + money(d.high) + (d.openEnded ? '+' : '');
+        var cal = CAL[state.timeline] || CAL.flexible;
+        var book = document.getElementById('book');
+        book.href = cal.url;
+        book.textContent = cal.label;
         form.hidden = true;
         document.querySelector('.progress').hidden = true;
         stepCount.hidden = true;
@@ -508,12 +584,22 @@
     nextBtn.addEventListener('click', function () {
       var msg = validate();
       if (msg) { err.textContent = msg; return; }
-      if (i === visible().length - 1) { submit(); return; }
-      i++; paint();
+      var vis = visible();
+      if (i === vis.length - 1) { submit(); return; }
+      if (fromReview) {
+        // Answering one step from the review screen: go straight back to it.
+        // (A project-type change can hide/show the platforms step, and
+        // validate() on the review step is a no-op, so this is always safe.)
+        fromReview = false;
+        i = vis.length - 1;
+      } else {
+        i++;
+      }
+      paint();
       document.querySelector('.est-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    backBtn.addEventListener('click', function () { if (i > 0) { i--; paint(); } });
+    backBtn.addEventListener('click', function () { fromReview = false; if (i > 0) { i--; paint(); } });
 
     form.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') { e.preventDefault(); nextBtn.click(); }
