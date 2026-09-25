@@ -199,6 +199,8 @@
       padding: 13px 15px; color: var(--fg); font: inherit; }
     .fld:focus { outline: none; border-color: var(--accent); }
     textarea.fld { min-height: 110px; resize: vertical; }
+    select.fld { appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 36px; cursor: pointer; }
+    select.fld option { color: #111; }
     .lbl { display: block; font-size: .88rem; color: var(--muted); margin: 0 0 6px; }
     .row { display: grid; gap: 14px; margin-bottom: 14px; }
     .nav-btns { display: flex; gap: 12px; align-items: center; margin-top: 26px; flex-wrap: wrap; }
@@ -324,6 +326,16 @@
           <div class="row">
             <div><label class="lbl" for="name">Your name</label><input class="fld" type="text" id="name" name="name" maxlength="200" autocomplete="name" required></div>
             <div><label class="lbl" for="email">Email</label><input class="fld" type="email" id="email" name="email" maxlength="320" autocomplete="email" required></div>
+            <div><label class="lbl" for="organization">Company or organization <span style="opacity:.6">(optional)</span></label><input class="fld" type="text" id="organization" name="organization" maxlength="200" autocomplete="organization" placeholder="Optional"></div>
+            <div><label class="lbl" for="referralSource">How did you hear about this? <span style="opacity:.6">(optional)</span></label>
+              <select class="fld" id="referralSource" name="referralSource">
+                <option value="">Skip this</option>
+                <option value="referral">Referral</option>
+                <option value="search">Search</option>
+                <option value="social">Social media</option>
+                <option value="portfolio">Portfolio site</option>
+                <option value="other">Other</option>
+              </select></div>
           </div>
           <p class="hint" style="margin:4px 0 0;font-size:.85rem;">I'll only use this to reply about your project. No list, no forwarding.</p>
         </div>
@@ -388,7 +400,8 @@
       platforms: { web: 'Web', ios: 'iOS', android: 'Android', macos: 'macOS' },
       features: { auth: 'Accounts & login', payments: 'Payments', database: 'Database / backend', admin: 'Admin dashboard', push: 'Notifications', integrations: 'Other integrations' },
       existingAssets: { has_design: 'Yes, I have designs or a brand', from_scratch: 'Starting from scratch' },
-      timeline: { flexible: 'Flexible', '4_8_weeks': '4\u20138 weeks', rush: 'Rush' }
+      timeline: { flexible: 'Flexible', '4_8_weeks': '4\u20138 weeks', rush: 'Rush' },
+      referralSource: { referral: 'Referral', search: 'Search', social: 'Social media', portfolio: 'Portfolio site', other: 'Other' }
     };
     var REVIEW_STEP = 7;
     var LS_KEY = 'we_estimate_draft';
@@ -416,15 +429,20 @@
     var state = { projectType: '', platforms: [], features: [], existingAssets: '', timeline: '' };
     var i = 0;
     var fromReview = false; // set when the visitor jumps back from the review screen to edit
+    // When this visit to the wizard began. Kept with the draft so a refresh
+    // doesn't reset it; sent as elapsed time so the server can flag a form
+    // that was "filled in" faster than any person could read it.
+    var startedAt = Date.now();
 
     // Restore an in-progress answer set so a refresh doesn't wipe the form.
     try {
       var saved = JSON.parse(sessionStorage.getItem(LS_KEY) || 'null');
       if (saved && saved.state) { state = saved.state; }
+      if (saved && typeof saved.startedAt === 'number' && saved.startedAt <= startedAt) { startedAt = saved.startedAt; }
     } catch (e) { /* ignore */ }
 
     function persist() {
-      try { sessionStorage.setItem(LS_KEY, JSON.stringify({ state: state })); } catch (e) {}
+      try { sessionStorage.setItem(LS_KEY, JSON.stringify({ state: state, startedAt: startedAt })); } catch (e) {}
     }
 
     // Platforms only make sense for some project types; marketing is web by definition.
@@ -493,7 +511,9 @@
         { step: 3, label: 'Designs', value: LABELS.existingAssets[state.existingAssets] || '\u2014' },
         { step: 4, label: 'Timeline', value: LABELS.timeline[state.timeline] || '\u2014' },
         { step: 5, label: 'Budget', value: budget || '(left blank)' },
-        { step: 6, label: 'Send to', value: document.getElementById('name').value.trim(), sub: document.getElementById('email').value.trim() }
+        { step: 6, label: 'Send to', value: document.getElementById('name').value.trim(), sub: document.getElementById('email').value.trim() },
+        { step: 6, label: 'Organization', value: document.getElementById('organization').value.trim(), hide: !document.getElementById('organization').value.trim() },
+        { step: 6, label: 'Heard via', value: LABELS.referralSource[document.getElementById('referralSource').value] || '', hide: !document.getElementById('referralSource').value }
       ];
       recap.innerHTML = rows.filter(function (r) { return !r.hide; }).map(function (r) {
         return '<div class="recap-row"><dt>' + esc(r.label) + '</dt><dd>' + esc(r.value) +
@@ -544,6 +564,9 @@
         existingAssets: state.existingAssets,
         timeline: state.timeline,
         budgetNote: document.getElementById('budgetNote').value.trim(),
+        organization: document.getElementById('organization').value.trim(),
+        referralSource: document.getElementById('referralSource').value,
+        elapsedMs: Math.max(0, Date.now() - startedAt),
         company: (form.querySelector('[name=confirm_ref]') || {}).value || ''
       };
       try {
@@ -605,6 +628,7 @@
       if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') { e.preventDefault(); nextBtn.click(); }
     });
 
+    persist();
     paint();
   })();
   </script>
