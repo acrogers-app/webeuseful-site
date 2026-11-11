@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Allen Rogers — App Developer &amp; AI Consultant | Webeuseful</title>
+<meta name="description" content="Save Allen Rogers' contact, email him, get a project estimate, or see the apps he's built. App development and AI consulting from Webeuseful.">
+<meta name="author" content="Allen Rogers">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://webeuseful.com/card/">
+<meta name="theme-color" content="#0A0E1A">
+<meta property="og:title" content="Allen Rogers — Webeuseful">
+<meta property="og:description" content="App Developer &amp; AI Consultant. Save my contact, get an estimate, or see my apps.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://webeuseful.com/card/">
+<meta property="og:site_name" content="Webeuseful">
+<meta property="og:image" content="https://webeuseful.com/img/allen.jpg">
+<meta property="og:image:alt" content="Allen Rogers, founder of Webeuseful">
+<link rel="icon" href="/img/allen.jpg">
+<link rel="apple-touch-icon" href="/img/allen.jpg">
+<style>
+    :root {
+      color-scheme: dark;
+      --bg: #0A0E1A;
+      --bg-soft: #0F1420;
+      --panel: #111624;
+      --panel-2: #141A2A;
+      --line: rgba(148,163,184,.14);
+      --line-strong: rgba(148,163,184,.28);
+      --fg: #F8FAFC;
+      --muted: #94A3B8;
+      --muted-dim: #7A87A2;
+      --accent: #3B82F6;
+      --accent-btn: #2563EB;
+      --accent-soft: #60A5FA;
+      --new: #34D399;
+      --focus: #93C5FD;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    a { color: var(--accent-soft); text-decoration: none; }
+    a:hover { color: var(--focus); }
+    a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 8px; }
+    .wrap {
+      width: 100%; max-width: 460px; margin: 0 auto;
+      padding-left: max(20px, env(safe-area-inset-left));
+      padding-right: max(20px, env(safe-area-inset-right));
+    }
+
+    /* ---- top bar (same brand mark as the rest of the site) ---- */
+    header.nav { border-bottom: 1px solid var(--line); }
+    .nav-inner { display: flex; align-items: center; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--fg); letter-spacing: -.01em; }
+    .brand:hover { color: var(--fg); }
+    .brand .dot { width: 10px; height: 10px; border-radius: 3px; background: linear-gradient(135deg, var(--accent), var(--new)); }
+
+    /* ---- card ---- */
+    main { flex: 1; position: relative; overflow: hidden; padding: 40px 0 48px; }
+    main::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(closest-side at 20% 8%, rgba(59,130,246,.20), transparent 70%),
+        radial-gradient(closest-side at 85% 4%, rgba(52,211,153,.12), transparent 70%);
+    }
+    main .wrap { position: relative; z-index: 1; }
+    .who { display: grid; justify-items: center; text-align: center; gap: 4px; }
+    .portrait {
+      width: 112px; height: 112px; border-radius: 50%; object-fit: cover;
+      border: 2px solid var(--line-strong); margin-bottom: 12px; background: var(--panel);
+    }
+    h1 { font-size: 2rem; line-height: 1.15; letter-spacing: -.02em; margin: 0; }
+    .role { color: var(--muted); font-size: 1.05rem; margin: 0; }
+
+    .actions { display: grid; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-weight: 600; font-size: 1rem; min-height: 52px; padding: 12px 20px;
+      border-radius: 999px; transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:focus-visible { border-radius: 999px; }
+    .btn-primary { background: var(--accent-btn); color: #fff; }
+    .btn-primary:hover { background: #1D4ED8; color: #fff; }
+    .btn-ghost { border: 1px solid var(--line-strong); color: var(--fg); }
+    .btn-ghost:hover { border-color: var(--fg); color: var(--fg); }
+
+    .email {
+      margin-top: 20px; padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--panel); display: grid; gap: 2px; text-align: center;
+    }
+    .label { font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted-dim); font-weight: 600; }
+    .email a { font-size: 1.1rem; font-weight: 600; word-break: break-all; }
+
+    .links { list-style: none; margin: 20px 0 0; padding: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); overflow: hidden; }
+    .links li + li { border-top: 1px solid var(--line); }
+    .links a {
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 12px;
+      padding: 16px 18px; color: var(--fg); min-height: 56px;
+    }
+    .links a:hover { background: var(--panel-2); color: var(--fg); }
+    .links a:focus-visible { outline-offset: -3px; border-radius: 0; }
+    .links .t { font-weight: 600; }
+    .links .d { grid-column: 1; font-size: .88rem; color: var(--muted); }
+    .links .arrow { grid-row: 1 / span 2; grid-column: 2; color: var(--accent-soft); font-size: 1.1rem; }
+
+    footer.site { border-top: 1px solid var(--line); padding: 24px 0 calc(32px + env(safe-area-inset-bottom)); color: var(--muted-dim); font-size: .88rem; }
+    .foot-inner { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: space-between; }
+    .foot-inner a { color: var(--muted); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn { transition: none; }
+      .btn:hover { transform: none; }
+    }
+</style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="/"><span class="dot" aria-hidden="true"></span> Webeuseful</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="who">
+        <img class="portrait" src="/img/allen.jpg" width="112" height="112" alt="Allen Rogers">
+        <h1>Allen Rogers</h1>
+        <p class="role">App Developer &amp; AI Consultant</p>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="/card/allen-rogers.vcf" type="text/vcard">Save my contact</a>
+        <a class="btn btn-ghost" href="https://apps.webeuseful.com/passes" type="application/vnd.apple.pkpass">Add to Apple Wallet</a>
+      </div>
+
+      <div class="email">
+        <span class="label" id="email-label">Email</span>
+        <a href="mailto:allen@webeuseful.com" aria-describedby="email-label">allen@webeuseful.com</a>
+      </div>
+
+      <ul class="links">
+        <li>
+          <a href="/work-with-me/estimate/">
+            <span class="t">Work with me</span>
+            <span class="d">App development and AI consulting. Get a ballpark estimate.</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://apps.webeuseful.com/">
+            <span class="t">See my apps</span>
+            <span class="d">Focused apps for iPhone, Android, Mac, Apple Watch and the web.</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="/#about">
+            <span class="t">About</span>
+            <span class="d">Who I am and how I work.</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="site">
+    <div class="wrap foot-inner">
+      <span>© 2026 Allen Rogers · Webeuseful</span>
+      <a href="/privacy.html">Privacy</a>
+    </div>
+  </footer>
+</body>
+</html>
