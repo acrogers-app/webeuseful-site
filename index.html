@@ -240,6 +240,19 @@
     .foot-links a { color: var(--muted); }
     .foot-links a:hover { color: var(--fg); }
   </style>
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-vt-2M2oPkXS3dg8FV0LKL.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init({ outboundLinks: false, fileDownloads: false, formSubmissions: false })
+  </script>
+  <!-- Voto-only click events: fires for links with data-analytics-event; no personal data -->
+  <script>
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[data-analytics-event]');
+      if (a) window.plausible(a.getAttribute('data-analytics-event'));
+    });
+  </script>
 </head>
 <body>
 
@@ -277,7 +290,7 @@
     <div class="wrap">
       <p class="kicker">The Portfolio</p>
       <h2 class="section-title">Shipped solo</h2>
-      <p class="section-lead">Focused tools across iOS, Android, web, watchOS, and macOS — no dark patterns, no tracking, most of them pay-once.</p>
+      <p class="section-lead">Focused tools across iOS, Android, web, watchOS, and macOS — no dark patterns, no ads, no cookies, most of them pay-once.</p>
       <div class="apps">
 
         <article class="card">
@@ -372,8 +385,8 @@
           <div class="card-foot">
             <span class="price">Free · $3.99/mo iOS</span>
             <div class="card-links">
-              <a class="pill pill-solid" href="https://apps.apple.com/app/id6761238359" target="_blank" rel="noopener">App Store</a>
-              <a class="pill pill-ghost" href="https://usevoto.app" target="_blank" rel="noopener">Web</a>
+              <a class="pill pill-solid" href="https://apps.apple.com/app/id6761238359" target="_blank" rel="noopener" data-analytics-event="voto_app_store_click">App Store</a>
+              <a class="pill pill-ghost" href="https://usevoto.app" target="_blank" rel="noopener" data-analytics-event="voto_web_app_click">Web</a>
             </div>
           </div>
         </article>
